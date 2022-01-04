@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HuggiesController { 
 	@RequestMapping(value = "board/board_list_page", method = RequestMethod.GET)
 	public void board_list_page() {
-		
+		 
 	}
 }
