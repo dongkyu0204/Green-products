@@ -12,5 +12,7 @@ public interface BoardService {
 	// 게시판 상세 페이지 설계
 	public BoardDTO detail(BoardDTO board);
 	// 게시판 수정 페이지
+	public void modify(BoardDTO board);
 	// 게시판 삭제 페이지
+	public void remove(BoardDTO board);
 }
