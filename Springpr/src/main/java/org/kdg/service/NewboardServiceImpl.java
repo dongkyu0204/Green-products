@@ -16,4 +16,12 @@ public class NewboardServiceImpl implements NewboardService{
 	public ArrayList<NewboardDTO> newlist() {
 		return nbmapper.newlist();
 	}
+	// 게시판 글쓰기 설계된 것을 구현
+	public void newWrite(NewboardDTO board) {
+		nbmapper.newWrite(board);
+	}
+	// 게시판 상세 페이지 설계된 것을 구현
+	public void detail() {
+		nbmapper.detail();
+	}
 }

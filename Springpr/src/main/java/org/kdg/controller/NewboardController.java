@@ -1,10 +1,12 @@
 package org.kdg.controller;
 
+import org.kdg.domain.NewboardDTO;
 import org.kdg.service.NewboardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -20,9 +22,23 @@ public class NewboardController {
 		model.addAttribute("list", newboard.newlist());
 	}
 	
-	//게시판 글쓰기...
+	//게시판 글쓰기 화면으로...
 	@GetMapping("write")
 	public void write() {
-		
 	}
+	
+	//게시판 글쓰기 버튼을 클릭하면...
+	@PostMapping("write")
+	public String writePost(NewboardDTO board) {
+		System.out.println("click");
+		newboard.newWrite(board);
+		return "redirect:/newboard/list";
+	}
+	
+	//게시판 상세 페이지 화면으로...
+	@GetMapping("detail")
+	public void detail() {
+		newboard.detail();
+	}
+	
 }

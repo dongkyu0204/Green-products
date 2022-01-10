@@ -1,6 +1,8 @@
 package org.kdg.controller;
 
 import org.kdg.domain.BoardDTO;
+import org.kdg.domain.Criteria;
+import org.kdg.domain.PageDTO;
 import org.kdg.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,10 +37,10 @@ public class BoardController {
 	
 	// 게시판 목록 리스트...
 	@GetMapping("list")
-	public void list(Model model) {
-		service.list();
+	public void list(Model model, Criteria cri) {
 		System.out.println("board/write");
-		model.addAttribute("list", service.list());
+		model.addAttribute("list", service.list(cri));
+		model.addAttribute("pageMaker", new PageDTO(cri,199));
 	}
 	
 	// 게시판 목록 리스트에서 제목을 클릭하면...

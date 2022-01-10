@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>게시판 글쓰기</title>
+		<title>게시판 상세 페이지</title>
+		
 		<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 		<link href="../resources/css/newboard/all.css" rel="stylesheet" type="text/css">
 	    <link href="../resources/css/newboard/sb-admin-2.css" rel="stylesheet">
@@ -13,13 +13,10 @@
 	</head>
 	
 	<body>
-		<h1>게시판 글쓰기</h1>
-		<form class="user" action="/newboard/write" method="post">
-	        <div class="form-group">
-	            <input type="text" name="title" class="form-control form-control-user" id="exampleInputEmail" placeholder="제목을 입력해주세요">
-	            <textarea rows="10" cols="30" name="content" class="form-control form-control-user" id="exampleInputEmail" placeholder="내용을 입력해주세요"></textarea>
-	            <button>글쓰기</button>
-	        </div>
-	    </form>
+		<div>제목</div>
+		<div>내용</div>
+		
+		<a href="">수정</a>
+		<a href="">삭제</a>
 	</body>
 </html>
