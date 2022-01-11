@@ -10,5 +10,5 @@ public interface NewboardMapper {
 	// 게시판 글쓰기와 관련 있는 DB 설계
 	public void newWrite(NewboardDTO board);
 	// 게시판 상세 페이지와 관련 있는 DB 설계
-	public void detail();
+	public NewboardDTO newDetail(NewboardDTO board);
 }

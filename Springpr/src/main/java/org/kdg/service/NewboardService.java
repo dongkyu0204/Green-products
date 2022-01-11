@@ -10,5 +10,5 @@ public interface NewboardService {
 	// 게시판 글쓰기 설계
 	public void newWrite(NewboardDTO board);
 	// 게시판 상세 페이지 설계
-	public void detail();
+	public NewboardDTO newDetail(NewboardDTO board);
 }

@@ -21,7 +21,7 @@ public class NewboardServiceImpl implements NewboardService{
 		nbmapper.newWrite(board);
 	}
 	// 게시판 상세 페이지 설계된 것을 구현
-	public void detail() {
-		nbmapper.detail();
+	public NewboardDTO newDetail(NewboardDTO board) {
+		return nbmapper.newDetail(board);
 	}
 }

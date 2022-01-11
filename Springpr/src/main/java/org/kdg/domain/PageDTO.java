@@ -29,7 +29,7 @@ public class PageDTO {
 		// 위 코드는 전체 건수를 고려하지 X
 		// 전체 건수를 고려한 endPage -> realEnd
 		// (int)(Math.ceil((전체건수*1.0)/10));
-		int realEnd=(int)(Math.ceil(total*10)/cri.getAmount());
+		int realEnd=(int)(Math.ceil(total*1.0/cri.getAmount()));
 		// 하지만 위 코드만 사용하면 1부터 36까지 한 줄로 표시됨(?)
 		
 		//realEnd < endPage => realEnd값을 endPage에 저장

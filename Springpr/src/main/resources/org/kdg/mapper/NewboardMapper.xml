@@ -10,6 +10,7 @@
 		insert into newboardt(title, content, regdate)
 		values (#{title}, #{content}, now());
 	</insert>
-	<select id="detail">
+	<select id="newDetail" resultType="org.kdg.domain.NewboardDTO">
+		select title,content from newboardT where bno=#{bno};
 	</select>
 </mapper>

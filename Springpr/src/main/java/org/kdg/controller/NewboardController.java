@@ -30,15 +30,14 @@ public class NewboardController {
 	//게시판 글쓰기 버튼을 클릭하면...
 	@PostMapping("write")
 	public String writePost(NewboardDTO board) {
-		System.out.println("click");
 		newboard.newWrite(board);
 		return "redirect:/newboard/list";
 	}
 	
-	//게시판 상세 페이지 화면으로...
+	//게시판 상세 페이지 화면으로(목록 리스트에서 제목을 클릭하면)...
 	@GetMapping("detail")
-	public void detail() {
-		newboard.detail();
+	public void detail(NewboardDTO board, Model model) {
+		model.addAttribute("detail", newboard.newDetail(board));
 	}
 	
 }

@@ -40,7 +40,8 @@ public class BoardController {
 	public void list(Model model, Criteria cri) {
 		System.out.println("board/write");
 		model.addAttribute("list", service.list(cri));
-		model.addAttribute("pageMaker", new PageDTO(cri,199));
+		int total = service.getTotalCount(cri);
+		model.addAttribute("pageMaker", new PageDTO(cri,total));
 	}
 	
 	// 게시판 목록 리스트에서 제목을 클릭하면...
