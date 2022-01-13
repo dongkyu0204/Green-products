@@ -7,4 +7,10 @@
 		insert into reply(bno,reply,replyer)
 		values(#{bno},#{reply},#{replyer})
 	</insert>
+	<select id="list" resultType="org.kdg.domain.ReplyDTO">
+		select * from reply where bno=#{bno}
+	</select>
+	<select id="detail" resultType="org.kdg.domain.ReplyDTO">
+		select * from reply where rno=#{rno};
+	</select>
 </mapper>
