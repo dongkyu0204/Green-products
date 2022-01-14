@@ -11,4 +11,8 @@ public interface NewboardService {
 	public void newWrite(NewboardDTO board);
 	// 게시판 상세 페이지 설계
 	public NewboardDTO newDetail(NewboardDTO board);
+	// 게시판 수정하기 설계
+	public void newModify(NewboardDTO board);
+	// 게시판 삭제하기 설계
+	public void newRemove(NewboardDTO board);
 }

@@ -67,6 +67,9 @@
                             </div>
                             <div class="modal-body">
                             	<div class="modal-body">
+                            		<input type="text" name="rno"/>
+                           		</div>
+                            	<div class="modal-body">
                             		<label>Replyer</label>
                             		<input type="text" name="replyer"/>
                            		</div>

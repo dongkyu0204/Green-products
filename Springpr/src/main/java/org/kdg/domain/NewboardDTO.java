@@ -51,4 +51,10 @@ public class NewboardDTO {
 	public void setGood(int good) {
 		this.good = good;
 	}
+	
+	@Override
+	public String toString() {
+		return "NewboardDTO [bno=" + bno + ", title=" + title + ", content=" + content + ", writer=" + writer
+				+ ", regdate=" + regdate + ", cnt=" + cnt + ", good=" + good + "]";
+	}
 }

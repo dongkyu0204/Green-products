@@ -11,6 +11,16 @@
 		values (#{title}, #{content}, now());
 	</insert>
 	<select id="newDetail" resultType="org.kdg.domain.NewboardDTO">
-		select title,content from newboardT where bno=#{bno};
+		select * from newboardT where bno=#{bno};
 	</select>
+	<update id="newModify">
+		update newboardt
+		set title=#{title},
+			content=#{content}
+		where bno=#{bno};
+	</update>
+	<delete id="newRemove">
+		delete from newboardt
+		where bno=#{bno};
+	</delete>
 </mapper>

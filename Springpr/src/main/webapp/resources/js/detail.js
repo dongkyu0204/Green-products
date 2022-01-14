@@ -13,12 +13,17 @@ $(document).ready(function() {
 	
 	// 댓글 쓰기 버튼을 클릭하면
 	$("#addReplyBtn").on("click", function() {
+		reply = $("input[name='reply']").val("");
+		//사용자가 입력한 댓글 작성자를 저장
+		replyer = $("input[name='replyer']").val("");
+		// 상세 페이지가 실행되면 댓글 글쓰기 버튼 활성화
+		$("#modalRegisterBtn").show();
 		// 댓글 수정 버튼 비활성화 
 		$("#modalModBtn").hide();
 		// 댓글 삭제 버튼 비활성화
 		$("#modalRemoveBtn").hide();
 		
-		// 모달창을 띄워라
+		// 모달창을 띄워라(bootstrap.js 안에 자동 실행되도록 설정)
 	});
 	
 	//bno값
@@ -33,7 +38,7 @@ $(document).ready(function() {
 			var str="";
 			
 			for(var i=0; i<list.length; i++){
-				str+="<li><div><b>"+list[i].replyer+"</b></div>";
+				str+="<li data-rno='"+list[i].rno+"'><div><b>"+list[i].replyer+"</b></div>";
 				str+="<div>"+list[i].reply+"</div>";
 				str+="</li>";
 			}
@@ -66,13 +71,20 @@ $(document).ready(function() {
 	
 	// 모달창 안에 댓글 쓰기 버튼
 	// 댓글 내용을 클릭하면(수정 및 삭제만 가능)
-	$("#relist").on("click", function() {
+	$("#relist").on("click","li" ,function() {	//li : event_delegate : 범위 한정(?) -> ul도 포함
+												// 후손 선택자를 이용하게되면 li들만 선택하는 것
 		
-		replyService.reDetail(7,function(detail){
+		// rno값 가져오기 (for문에 사용했던 data-rno와 연관 : data 선택자)
+		var rno = $(this).data("rno");
+		
+		
+		
+		replyService.reDetail(rno,function(detail){
 			          
 			console.log(detail.replyer);
 			console.log(detail.reply);
 			
+			$("input[name='rno']").val(rno);
 			$("input[name='replyer']").val(detail.replyer);
 			$("input[name='reply']").val(detail.reply);
 			
@@ -89,7 +101,59 @@ $(document).ready(function() {
 		
 		
 	})
+	
+	// 댓글 수정 버튼을 클릭하면
+	$("#modalModBtn").on("click", function() {
+		var reply = {rno:$("input[name='rno']").val(), reply:$("input[name='reply']").val()}
+		
+		// 댓글 수정 함수를 호출해서 처리
+		replyService.reupdate(reply,function(update){
+			// 콜백영역(update가 정상적으로 처리된 후 조치)
+			alert("update 작업 : " + update)
+			// 모달창을 닫고
+			$(".modal").modal("hide");
+			// 목록 리스트를 실행함으로써 새로고침
+			showList();
+		})
+		
+	})
+	
+	
+	// 댓글 삭제 버튼을 클릭하면
+	$("#modalRemoveBtn").on("click",function() {
+		// alert("aaa");
+		var reply = {rno:$("input[name='rno']").val()}
+		// 댓글 삭제 함수를 호출해서 처리
+		replyService.remove(reply, function(remove){
+			// 콜백영역(update가 정상적으로 처리된 후 조치)
+			alert("delete 작업 : " + remove);
+			// 모달창을 닫고
+			$(".modal").modal("hide");
+			// 목록 리스트를 실행함으로써 새로고침
+			showList();
+		})
+		
+	})
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 })
+
+
+
+
 
 
 
@@ -143,11 +207,45 @@ var replyService=(function(){
 		)
 	}
 	// 댓글 수정을 하기 위한 함수 선언
+	function reupdate(reply, callback) {
+		$.ajax({
+			url:"/replies/update",
+			type:"put",
+			data:JSON.stringify(reply),
+			contentType:"application/json; charset=utf-8",
+			success:function(result){
+				if (callback)
+					callback(result);
+			},		
+			error:function(){
+			}
+		})
+	}
+	
 	
 	// 댓글 삭제를 하기 위한 함수 선언
+	function remove(reply, callback) {
+		$.ajax({
+			url:"/replies/remove",
+			type:"delete",
+			data:JSON.stringify(reply),
+			contentType:"application/json; charset=utf-8",
+			success:function(result){
+				if (callback)
+					callback(result);
+			},		
+			error:function(){
+			}
+		})
+	}
+	
+	
+	
 	return {
 		add:add,
 		getList:getList,
-		reDetail:reDetail
+		reDetail:reDetail,
+		reupdate:reupdate,
+		remove:remove
 	};
 })()

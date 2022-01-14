@@ -16,7 +16,7 @@
 		<div>${detail.title}</div>
 		<div>${detail.content}</div>
 		
-		<a href="">수정</a>
-		<a href="">삭제</a>
+		<a href="/newboard/modify?bno=${detail.bno}">수정</a>
+		<a href="/newboard/remove?bno=${detail.bno}">삭제</a>
 	</body>
 </html>

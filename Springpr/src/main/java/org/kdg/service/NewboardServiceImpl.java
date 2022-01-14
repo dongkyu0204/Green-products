@@ -24,4 +24,12 @@ public class NewboardServiceImpl implements NewboardService{
 	public NewboardDTO newDetail(NewboardDTO board) {
 		return nbmapper.newDetail(board);
 	}
+	// 게시판 수정하기 설계한 것을 구현
+	public void newModify(NewboardDTO board) {
+		nbmapper.newModify(board);
+	}
+	// 게시판 삭제하기 설계한 것을 구현
+	public void newRemove(NewboardDTO board) {
+		nbmapper.newRemove(board);
+	}
 }
