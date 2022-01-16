@@ -16,7 +16,7 @@
 		<h1>수정하기</h1>
 		<form class="user" action="/newboard/modify" method="post">
 	        <div class="form-group">
-	            <input type="text" name="bno" class="form-control form-control-user" id="exampleInputEmail" value="${detail.bno}">
+	            <input type="hide" name="bno" class="form-control form-control-user" id="exampleInputEmail" value="${detail.bno}">
 	            <input type="text" name="title" class="form-control form-control-user" id="exampleInputEmail" value="${detail.title}">
 	            <textarea rows="10" cols="30" name="content" class="form-control form-control-user" id="exampleInputEmail">${detail.content}</textarea>
 	            <button>수정하기</button>

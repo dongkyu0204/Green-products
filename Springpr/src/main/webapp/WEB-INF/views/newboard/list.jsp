@@ -11,35 +11,72 @@
 		<link href="../resources/css/newboard/all.css" rel="stylesheet" type="text/css">
 	    <link href="../resources/css/newboard/sb-admin-2.css" rel="stylesheet">
 	    <link href="../resources/css/newboard/dataTables.bootstrap4.css" rel="stylesheet">
+	    
+     	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script type="text/javascript" src="../resources/js/newList.js"></script>
 	</head>
 	
 	<body>
 		<h1>게시판</h1>
 		<div class="card-body">
-        	<div class="table-responsive">
-	           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-	               <thead>
-	                   <tr>
-	                       <th>게시판 번호</th>
-	                       <th>제목</th>
-	                       <th>작성자</th>
-	                       <th>조회수</th>
-	                       <th>좋아요</th>
-	                   </tr>
-	               </thead>
-	               
-	               <tbody>
-	                <c:forEach items="${list}" var="board">
-	                    <tr>
-	                        <td>${board.bno}</td>
-	                        <td><a href="/newboard/detail?bno=${board.bno}">${board.title}</a></td>
-	                        <td>${board.writer}</td>
-	                        <td>${board.cnt}</td>
-	                        <td>${board.good}</td>
-	                    </tr>
-	                 </c:forEach>
-	                </tbody>
+       		<div class="table-responsive">
+           		<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+               		<thead>
+					    <tr>
+					        <th>게시판 번호</th>
+					        <th>제목</th>
+					        <th>작성자</th>
+					        <th>조회수</th>
+					        <th>좋아요</th>
+					    </tr>
+					</thead>
+					
+					<tbody>
+				 		<c:forEach items="${list}" var="board">
+							<tr>
+							    <td>${board.bno}</td>
+							    <td><a href="/newboard/detail?bno=${board.bno}">${board.title}</a></td>
+							    <td>${board.writer}</td>
+							    <td>${board.cnt}</td>
+							    <td>${board.good}</td>
+							</tr>
+						</c:forEach>
+				 	</tbody>
 	            </table>
+            
+            	<form id="actionForm" action="/newboard/list" type="get">
+            		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+            		<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+	            	<select name="search">
+	            		<option value="T">제목</option>
+	            		<option value="C">내용</option>
+	            		<option value="W">작성자</option>
+	            		<option value="TC">제목 + 내용</option>
+	            		<option value="TCW">제목 + 내용 + 작성자</option>
+	            	</select>
+	            	<input type="text" name="keyword">
+	            	<input type="submit" value="검색">
+            	
+	            	<div id="dataTable_paginate" class="dataTables_paginate paging_simple_numbers">
+	           			<ul class="pagination">
+	            		<c:if test="${pageMaker.prev}">
+	           				<li class="paginate_button page-item previous" id="dataTable_previous">
+			   					<a href="${pageMaker.startPage-1}" class="page-link">이전</a>
+			   				</li>
+		   				</c:if>
+	   	        		<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+	           				<li class="paginate_button page-item ">
+	           					<a href="${num}" class="page-link">${num}</a>
+	           				</li>
+	            		</c:forEach>
+	            		<c:if test="${pageMaker.next}">
+		            		<li class="paginate_button page-item previous" id="dataTable_previous">
+			   					<a href="${pageMaker.endPage+1}" class="page-link">다음</a>
+			   				</li>
+		   				</c:if>
+	           			</ul>	
+	            	</div>
+            	</form>
             </div>
         </div>
         <a href="/newboard/write">글쓰기</a>

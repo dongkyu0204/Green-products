@@ -1,5 +1,7 @@
 package org.kdg.controller;
 
+import org.kdg.domain.NewCriteriaDTO;
+import org.kdg.domain.NewPageDTO;
 import org.kdg.domain.NewboardDTO;
 import org.kdg.service.NewboardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +21,10 @@ public class NewboardController {
 	
 	//게시판 목록 리스트...
 	@RequestMapping(value = "list", method = RequestMethod.GET)
-	public void create(Model model) {
-		model.addAttribute("list", newboard.newlist());
+	public void create(Model model, NewCriteriaDTO cri) {
+		model.addAttribute("list", newboard.newlist(cri));
+		int total = newboard.getTotalCount(cri);
+		model.addAttribute("pageMaker", new NewPageDTO(cri, total));
 	}
 	
 	//게시판 글쓰기 화면으로...
@@ -62,7 +66,7 @@ public class NewboardController {
 	//게시판 삭제하긴 버튼을 클릭하면....
 	@GetMapping("remove")
 	public String remove(NewboardDTO board) {
-		System.out.println("click modify!!!");
+		System.out.println("click remove!!!");
 		newboard.newRemove(board);
 		return "redirect:/newboard/list";
 	}
