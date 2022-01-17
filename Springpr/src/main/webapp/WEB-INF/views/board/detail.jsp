@@ -37,7 +37,6 @@
 			<a href="/board/remove?bno=${detail.bno}">삭제</a>
 		</div>
 		<div>
-			<button class="col-sm-12 mb-3 mb-sm-0">댓글 쓰기</button>
 			<div class="panel-body">
 				<!-- Button trigger modal -->
 				<button id="addReplyBtn" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
@@ -47,14 +46,6 @@
 	            <div>
 	            	<ul id="relist"></ul>
 	            </div>
-	            
-	            
-	            
-	            
-	            
-	            
-	            
-	            
 	            
 	            
 	            
