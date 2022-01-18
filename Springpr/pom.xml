@@ -109,6 +109,13 @@
 		    <version>2.8.5</version>
 		</dependency>
 				
+		<!-- https://mvnrepository.com/artifact/net.coobird/thumbnailator -->
+		<dependency>
+		    <groupId>net.coobird</groupId>
+		    <artifactId>thumbnailator</artifactId>
+		    <version>0.4.8</version>
+		</dependency>
+		
 		<!-- 새로 추가한 라이브러리들  -->		
 				
 				
