@@ -5,6 +5,7 @@ public class AttachFileDTO {
 	private String uploadPath;	// 업로드된 파일 경로
 	private String uuid;		// uuid
 	private boolean image;		// 이미지 여부
+	private int bno;			// 게시판 번호
 	
 	public String getFileName() {
 		return fileName;
@@ -30,11 +31,17 @@ public class AttachFileDTO {
 	public void setImage(boolean image) {
 		this.image = image;
 	}
-
+	public int getBno() {
+		return bno;
+	}
+	public void setBno(int bno) {
+		this.bno = bno;
+	}
+	
 	@Override
 	public String toString() {
 		return "AttachFileDTO [fileName=" + fileName + ", uploadPath=" + uploadPath + ", uuid=" + uuid + ", image="
-				+ image + "]";
+				+ image + ", bno=" + bno + "]";
 	}
 	
 }

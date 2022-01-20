@@ -2,6 +2,46 @@
  * 
  */
 $(document).ready(function() {
+	//bno값
+	var bno = $("#bno").html();
+	
+	// 상세 페이지가 시작되자마자 이미지를 출력하기 위한 ajax
+	$.getJSON(
+		"/board/fileList/"+bno+".json",
+		function(data) { //BoardController에 있는 fileList를 통해 얻어진 select 결과를 data에 저장한 후,
+			// detail.jsp에 뿌리기
+			console.log(data);
+			var str="";
+			$(data).each(function(i, obj){
+				if(!obj.image) {	// 사용자가 업로드 한 파일의 이미지가 아니면 (exl, ppt 등) -> obj안에 image가 boolean 타입으로 나와있음
+					// 해당 파일을 download 할 수 있도록 설정할 거임
+					var fileCallPath = encodeURIComponent(obj.uploadPath+"/"+obj.uuid+"_"+obj.fileName);
+					str+="<li data-path='"+obj.uploadPath+"'";
+					str+=" data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'>";
+					str+="<a href='/download?fileName="+fileCallPath+"'>"+obj.fileName+"</a></li>";
+				} else {	// 사용자가 업로드 한 파일의 타입이 이미지면 (png, jpg, gif)
+					
+					// 기존에는 경로 사이가 \로 표시되기에 해당 src로 찾아가지 못함
+					// 아래 함수는 원화 표시를 /로 바꿔줌
+					// 더불어 아래의 /display?fileName을 encode 안에 넣게되면 / 또한 해석을 하기 때문에 정상적으로 작동하지 않음
+					var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);
+					
+					//img 태그를 사용하여 웹브라우저에 출력
+					str+="<li data-path='"+obj.uploadPath+"'";
+					str+=" data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'>";
+					str+="<img src='/display?fileName="+fileCallPath+"'></li>";
+				}
+			})
+			$("#uploadResult ul").html(str);
+		}
+	)
+	
+	
+	
+	
+	
+	
+	
 	// 상세 페이지가 실행되면 댓글 글쓰기 버튼 활성화
 	$("#modalRegisterBtn").show();
 	// 상세 페이지가 실행되면 댓글 수정 버튼 활성화
@@ -26,15 +66,12 @@ $(document).ready(function() {
 		// 모달창을 띄워라(bootstrap.js 안에 자동 실행되도록 설정)
 	});
 	
-	//bno값
-	var bno = $("#bno").html();
-	
 	showList(); // detail.jsp가 실행되자마자 댓글 목록이 보여저야 함
 
 	function showList() {
 		replyService.getList({bno:bno}, function(list){
 			
-			console.log(list);
+//			console.log(list);
 			var str="";
 			
 			for(var i=0; i<list.length; i++){

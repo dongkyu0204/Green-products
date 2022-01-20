@@ -1,5 +1,7 @@
 package org.kdg.domain;
 
+import java.util.ArrayList;
+
 public class BoardDTO{
 	private int bno;
 	private String title;
@@ -8,6 +10,8 @@ public class BoardDTO{
 	private String regdate;
 	private int cnt;
 	private int good;
+	private ArrayList<AttachFileDTO> attachList;
+	
 	
 	public int getBno() {
 		return bno;
@@ -51,11 +55,17 @@ public class BoardDTO{
 	public void setGood(int good) {
 		this.good = good;
 	}
+	public ArrayList<AttachFileDTO> getAttachList() {
+		return attachList;
+	}
+	public void setAttachList(ArrayList<AttachFileDTO> attachList) {
+		this.attachList = attachList;
+	}
 	
 	@Override
 	public String toString() {
 		return "BoardDTO [bno=" + bno + ", title=" + title + ", content=" + content + ", writer=" + writer
-				+ ", regdate=" + regdate + ", cnt=" + cnt + ", good=" + good + "]";
+				+ ", regdate=" + regdate + ", cnt=" + cnt + ", good=" + good + ", attachList=" + attachList + "]";
 	}
 	
 }

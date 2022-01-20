@@ -1,5 +1,6 @@
 package org.kdg.controller;
 
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,10 +11,14 @@ import java.util.Date;
 import java.util.UUID;
 
 import org.kdg.domain.AttachFileDTO;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -116,7 +121,7 @@ public class UploadController {
 		
 		
 		
-		// 파일 업로드 할 경로 지정 
+		// 파일 업로드 할 경로 지정
 		String uploadFolder = "D:\\01-STUDY\\upload";
 		
 		
@@ -206,7 +211,6 @@ public class UploadController {
 				System.out.println(attachdto);
 				
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} // end try
 			
@@ -219,6 +223,57 @@ public class UploadController {
 	}
 	
 	
+	// 업로드한 file이 image일 때(.jpg, .png, .gif) 화면에 해당 이미지를 띄워줌
+	@GetMapping("display")	// 이 GetMapping은 js파일의 src 내의 경로와 연관되어 실행되는 듯 함
+	public ResponseEntity<byte[]> getFile(String fileName) {	//이 메소드는 문자열로 형성된 파일의 경로를 매개변수로 받음 
+		System.out.println("url 주소를 통한 fileName = " + fileName); // 그리고 byte[] (2진수)로 데이터 반환
+		
+		File file = new File("D:\\01-STUDY\\upload\\" + fileName);
+		
+		System.out.println("file = " + file);
+		
+		ResponseEntity<byte[]> result = null;
+		
+		//  byte[] 형식으로 이미지 파일을 전송할 때, 브라우저에 보내는 MIME타입이(jpg, png, xls, ppt) 파일 종류에 따라 달라짐
+		// 이 부분을 해결하기 위해 probeContentType()을 이용하여 적절한 MIME 타입 데이터를 HTTP의 헤더 메세지에 포함될 수 있도록 처리
+		try {
+			HttpHeaders header = new HttpHeaders();//즉 웹 브라우저에 전송되는 타입의 형식이 text/json인지 이미지인지 알려줘야 한다는 것
+			result= new ResponseEntity<>(FileCopyUtils.copyToByteArray(file),header,HttpStatus.OK);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	
+	// 업로드한 file이 이미지가 아닐 때 (.xls, .ppt, .txt) 웹브라우저를 통해 다운로드할 수 있도록 설정
+	
+							//이미지를 단순히 구현하는 것과 달리 실제로 다운로드할 수 있도록 만들어줘야 하기 때문에 produces도 필요함
+							//웹 브라우저가 이 파일은 download 해야하는 파일이라는 것을 인지할 수 있도록 반환이 되어야 함
+							//이를 위해 APPLICATION_OCTET_STREAM_VALUE 타입으로 반환 데이터를 선언
+	@GetMapping(value = "download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE) 
+	public ResponseEntity<Resource> downloadFile(String fileName) {
+		System.out.println("download fileName = " + fileName);
+		
+		Resource resource = new FileSystemResource("D:\\01-STUDY\\upload\\" + fileName);
+		
+		System.out.println("download resource = " + resource);
+		
+		String resourceName = resource.getFilename();
+		
+		HttpHeaders header = new HttpHeaders();
+		
+		try {
+			header.add("Content-Disposition", "attachment; filename=" + new String(resourceName.getBytes("UTF-8"),"ISO-8859-1"));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return new ResponseEntity<Resource>(resource,header,HttpStatus.OK);
+		
+	}
 }
 
 

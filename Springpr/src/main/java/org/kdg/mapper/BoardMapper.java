@@ -8,6 +8,9 @@ import org.kdg.domain.Criteria;
 public interface BoardMapper {
 	//게시판 글쓰기와 관련이 있는 DB작업에 대한 설계
 	public void write(BoardDTO board);
+	//게시판 글쓰기와 관련이 있는 DB작업에 대한 설계
+	public void insertSelectKey(BoardDTO board);
+	
 	//게시판 목록 리스트와 관련이 있는 DB작업에 대한 설계
 	public ArrayList<BoardDTO> list(Criteria cri);
 	//게시판 상세페이지와 관련이 있는 DB작업 설계

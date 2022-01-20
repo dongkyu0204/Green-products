@@ -5,8 +5,23 @@
 <mapper namespace="org.kdg.mapper.BoardMapper">
 	<insert id="write">
 		insert into board(title,content,writer,regdate)
-		values (#{title},#{content},#{writer},now());
+		values (#{title},#{content},#{writer},now())
 	</insert>
+	
+	<!-- board테이블에  insert 하기 전에 bno 값을 미리 만든 후 insert를 해야 함 -->
+	<insert id="insertSelectKey">
+		<selectKey keyProperty="bno" order="BEFORE" resultType="int">
+			select max(bno)+1 bno from board
+		</selectKey>
+		insert into board(bno, title,content,writer,regdate)
+		values (#{bno},#{title},#{content},#{writer},now())
+	</insert>
+	
+	
+	
+	
+	
+	
 	<select id="list" resultType="org.kdg.domain.BoardDTO">
 		select *
 		from (

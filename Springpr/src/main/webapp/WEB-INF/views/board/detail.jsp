@@ -36,6 +36,11 @@
 			<a href="/board/modify?bno=${detail.bno}">수정</a>
 			<a href="/board/remove?bno=${detail.bno}">삭제</a>
 		</div>
+		
+		<div id="uploadResult" class="col-sm-12 mb-3 mb-sm-0">
+			<ul></ul>
+		</div>
+		
 		<div>
 			<div class="panel-body">
 				<!-- Button trigger modal -->
