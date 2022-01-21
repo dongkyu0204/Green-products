@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -23,6 +24,11 @@
 	</head>
 	
 	<body>
+		<c:if test="${login!=null}"> <!-- test에 조건이 들어감 -->
+			<div class="form-control bg-light border-0 small">
+				<a href="/board/write" class="page-link">글쓰기</a>
+			</div>
+		</c:if>
 		<div class="form-group row">
 			<div id="bno" class="col-sm-12 mb-3 mb-sm-0">${detail.bno}</div>
 		  	<div class="col-sm-12 mb-3 mb-sm-0">

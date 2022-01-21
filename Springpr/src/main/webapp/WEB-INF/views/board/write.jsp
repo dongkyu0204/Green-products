@@ -19,6 +19,7 @@
 	
 	<body>
 		<h1>게시판 글쓰기</h1>
+		
 		<form role="form" action="/board/write" method="post">
 			<div class="form-group row">
 			  	<div class="col-sm-12 mb-3 mb-sm-0">

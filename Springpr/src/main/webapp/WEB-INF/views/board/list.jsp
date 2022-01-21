@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -16,6 +16,11 @@
 	</head>
 	<body>
 		<h1>게시판 목록 리스트</h1>
+		<c:if test="${login!=null}"> <!-- test에 조건이 들어감 -->
+			<div class="form-control bg-light border-0 small">
+				<a href="/board/write" class="page-link">글쓰기</a>
+			</div>
+		</c:if>
 		<div class="card-body">
 	        <div class="table-responsive">
 	            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

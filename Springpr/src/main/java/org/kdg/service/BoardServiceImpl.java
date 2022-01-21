@@ -26,14 +26,19 @@ public class BoardServiceImpl implements BoardService{
 		// 제목과 내용을 board 테이블에 insert
 //		bmapper.write(board);
 		bmapper.insertSelectKey(board);
-		// 파일명, 파일경로, 파일 타입, uuid 값을 attach 테이블에 insert
-		// boardDTO에 있는 attachList를 가져와서 반복문으로 실행하고 attach 변수에 저장
-		board.getAttachList().forEach(attach->{
-			// BoardDTO의 bno값을 가져와서 attachFileDTO의 bno에 담아줌
-			attach.setBno(board.getBno());
+		
+		if (board.getAttachList()!=null) {
+			// 파일명, 파일경로, 파일 타입, uuid 값을 attach 테이블에 insert
+			// boardDTO에 있는 attachList를 가져와서 반복문으로 실행하고 attach 변수에 저장
+			board.getAttachList().forEach(attach->{
+				// BoardDTO의 bno값을 가져와서 attachFileDTO의 bno에 담아줌
+				attach.setBno(board.getBno());
 //			System.out.println("attach bno : " + attach.getBno());
-			amapper.insert(attach);
-		});
+				amapper.insert(attach);
+			});
+		} else {
+			System.out.println("There's no AttachList<>");
+		}
 	}
 	// 게시판 목록 리스트 설계된 것을 구현
 	public ArrayList<BoardDTO> list(Criteria cri) {
